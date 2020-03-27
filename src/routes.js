@@ -4,6 +4,9 @@ const routes = express.Router();
 const ongcontroller = require("./controllers/OngController");
 const incidenteController = require("./controllers/IncidenteController");
 const profileController = require("./controllers/ProfileController");
+const sessionController = require("./controllers/SessionController");
+
+routes.post("/session", sessionController.create);
 
 routes.post("/ongs", ongcontroller.create);
 routes.get("/ongs", ongcontroller.index);
