@@ -15,6 +15,6 @@ module.exports = {
         .status(400)
         .json({ error: "O ID  foi encontrado uma ong com o ID informado!" });
     }
-    return response.json({ ong });
+    return response.json(ong);
   }
 };
