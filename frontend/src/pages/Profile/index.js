@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiPower, FiTrash2 } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 import "./styles.css";
 import logoImg from "../../assets/logo.svg";
@@ -24,13 +25,15 @@ const Profile = () => {
       });
       setIncidents(response.data);
     } catch (error) {
-      alert("Error, se o problema persistir procure o administrado do sistema");
+      toast.error(
+        "Error, se o problema persistir procure o administrado do sistema"
+      );
     }
   }
 
   function handleLogout() {
     localStorage.clear();
-    history.push("/ ");
+    history.push("/");
   }
 
   function handleDeleteIncident(id) {

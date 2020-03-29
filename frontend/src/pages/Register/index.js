@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import "./styles.css";
 
 import logonImg from "../../assets/logo.svg";
@@ -27,11 +27,11 @@ const Register = () => {
     };
 
     try {
-      const resp = await api.post("/ongs", data);
-      alert("Seu ID de acesso ", resp.data.id);
+      const response = await api.post("ongs", data);
+      alert("Seu ID de acesso:", response.data.id);
       history.push("/");
     } catch (error) {
-      alert("Erro no cadastro, tente novamenteo mais tarde");
+      toast.error("Erro no cadastro, tente novamente mais tarde.");
     }
   }
 
