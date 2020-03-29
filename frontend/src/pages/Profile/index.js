@@ -30,7 +30,7 @@ const Profile = () => {
 
   function handleLogout() {
     localStorage.clear();
-    history.push("/");
+    history.push("/ ");
   }
 
   function handleDeleteIncident(id) {
