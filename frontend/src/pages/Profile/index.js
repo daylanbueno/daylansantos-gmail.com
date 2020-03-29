@@ -24,10 +24,9 @@ const Profile = () => {
         }
       });
       setIncidents(response.data);
-    } catch (error) {
-      toast.error(
-        "Error, se o problema persistir procure o administrado do sistema"
-      );
+    } catch (response) {
+      const { data } = response;
+      toast.error(data);
     }
   }
 

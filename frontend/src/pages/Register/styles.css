@@ -45,6 +45,11 @@
   margin-top: 8px;
 }
 
+.register-container .content form h1 {
+  margin-top: 8px;
+  color: #737380;
+}
+
 .register-container .content form .input-group {
   display: flex;
 }

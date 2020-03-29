@@ -1,39 +1,53 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./styles.css";
 
 import logonImg from "../../assets/logo.svg";
 import { FiArrowLeft } from "react-icons/fi";
+import InputMask from "react-input-mask";
 
 import api from "../../services/api";
+import { removeMaskPhone } from "../../util/Formatador";
 
 const Register = () => {
-  const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [city, setCity] = useState("");
   const [uf, setUf] = useState("");
+  const [idOng, setIdOng] = useState("");
+
+  function limparCampos() {
+    setName("");
+    setEmail("");
+    setWhatsapp("");
+    setCity("");
+    setUf("");
+  }
 
   async function hadleRegister(e) {
     e.preventDefault();
     const data = {
       name,
       email,
-      whatsapp,
+      whatsapp: removeMaskPhone(whatsapp),
       city,
       uf
     };
 
     try {
       const response = await api.post("ongs", data);
-      alert("Seu ID de acesso:", response.data.id);
-      history.push("/");
-    } catch (error) {
-      toast.error("Erro no cadastro, tente novamente mais tarde.");
+      setIdOng(response.data.id);
+      limparCampos();
+    } catch (responseError) {
+      const { data } = responseError.response;
+      console.log(data);
+      toast.error(data.error);
     }
   }
+
+  const ShowIdONG = () => <h1>{`SEU ID É: ${idOng}`}</h1>;
 
   return (
     <div className="register-container">
@@ -49,11 +63,12 @@ const Register = () => {
           </p>
           <Link className="back-link" to="/">
             <FiArrowLeft size={16} color="#E02041" />
-            Não tenho cadastro
+            Efetuar Login
           </Link>
         </section>
 
         <form onSubmit={hadleRegister}>
+          {idOng && ShowIdONG()}
           <input
             placeholder="Nome da ONG"
             value={name}
@@ -65,10 +80,11 @@ const Register = () => {
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
-          <input
+          <InputMask
             placeholder="Whatsapp"
-            value={whatsapp}
+            mask="(99) 99999-9999"
             onChange={e => setWhatsapp(e.target.value)}
+            value={whatsapp}
           />
           <div className="input-group">
             <input

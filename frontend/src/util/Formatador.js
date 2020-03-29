@@ -4,3 +4,7 @@ export function formataMoeda(valor) {
     currency: "BRL"
   }).format(valor);
 }
+
+export function removeMaskPhone(numero) {
+  return parseInt(numero.replace(/[^0-9]/g, ""));
+}
